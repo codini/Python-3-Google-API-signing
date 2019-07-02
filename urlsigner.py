@@ -37,7 +37,7 @@ def sign_url(input_url=None, secret=None):
 
   # Create a signature using the private key and the URL-encoded
   # string using HMAC SHA1. This signature will be binary.
-  signature = hmac.new(decoded_key, url_to_sign, hashlib.sha1)
+  signature = hmac.new(decoded_key, url_to_sign.encode(), hashlib.sha264)
 
   # Encode the binary signature into base64 for use within a URL
   encoded_signature = base64.urlsafe_b64encode(signature.digest())
@@ -45,7 +45,7 @@ def sign_url(input_url=None, secret=None):
   original_url = url.scheme + "://" + url.netloc + url.path + "?" + url.query
 
   # Return signed URL
-  return original_url + "&signature=" + encoded_signature
+  return original_url + "&signature=" + encoded_signature.decode()
 
 if __name__ == "__main__":
   input_url = raw_input("URL to Sign: ")
