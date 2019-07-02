@@ -5,7 +5,7 @@
 import hashlib
 import hmac
 import base64
-import urlparse
+import urllib.parse
 
 def sign_url(input_url=None, secret=None):
   """ Sign a request URL with a URL signing secret.
@@ -26,7 +26,7 @@ def sign_url(input_url=None, secret=None):
   if not input_url or not secret:
     raise Exception("Both input_url and secret are required")
 
-  url = urlparse.urlparse(input_url)
+  url = urllib.parse.urlparse(input_url)
 
   # We only need to sign the path+query part of the string
   url_to_sign = url.path + "?" + url.query
